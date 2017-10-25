@@ -155,8 +155,7 @@ def handle_events():
                 x, y = event.x, 600 - event.y
                 team[num].x,team[num].y = x,y
                 
-            else:
-                hero.handle_event(event)
+           
             
 
 
