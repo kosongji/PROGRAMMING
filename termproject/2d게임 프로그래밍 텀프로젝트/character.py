@@ -36,7 +36,7 @@ class FreeCharacter:
     def update(self, frame_time):
         distance = FreeCharacter.RUN_SPEED_PPS * frame_time
         self.total_frames += FreeCharacter.FRAMES_PER_ACTION * FreeCharacter.ACTION_PER_TIME*frame_time
-        self.frame = int(self.total_frames) % 8
+        self.frame = int(self.total_frames) % 1
         self.x += (self.xdir * distance)
         self.y += (self.ydir * distance)
 
