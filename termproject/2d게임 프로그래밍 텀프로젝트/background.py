@@ -13,7 +13,7 @@ class FixedBackground:
         self.speed = 500
         self.left = 0
         self.screen_width = 800
-        self.screen_height = 600
+        self.screen_height = 800
        
 
     def set_center_object(self, character):

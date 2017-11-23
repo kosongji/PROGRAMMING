@@ -18,8 +18,8 @@ class FreeCharacter:
     image = None
 
 
-     def __init__(self):
-        self.x, self.y = 240,50
+    def __init__(self):
+        self.x, self.y = 400,55
         self.frame = random.randint(0, 7)
         self.life_time = 0.0
         self.total_frames = 0.0
@@ -39,6 +39,14 @@ class FreeCharacter:
         self.frame = int(self.total_frames) % 1
         self.x += (self.xdir * distance)
         self.y += (self.ydir * distance)
+        if self.x< 50:
+            self.x = 50
+        elif self.x > 750:
+            self.x = 750
+        elif self.y >600:
+            self.y = 600
+        elif self.y < 50:
+            self.y = 50
 
 
     def draw(self):

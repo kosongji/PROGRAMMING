@@ -15,7 +15,7 @@ image = None
 def enter():
     global image,button
     image = load_image('Shooting_Stars.png')
-    button = uif.Button('gamestart.png',150,100)
+    button = uif.Button('gamestart.png',200,100)
     button.onOver = onBtn
 def exit():
     global image
@@ -39,7 +39,7 @@ def onBtn():
 def draw(frame_time):
     global button
     clear_canvas()
-    image.draw(400, 300)
+    image.draw(400, 325)
     button.draw()
     update_canvas()
 

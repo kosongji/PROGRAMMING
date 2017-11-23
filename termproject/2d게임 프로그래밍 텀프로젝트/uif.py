@@ -31,7 +31,7 @@ class Button:
 
     def handle_event(self,event):
         if event.type == SDL_MOUSEBUTTONDOWN:
-            if(self.ptInRect(event.x,600-event.y)):
+            if(self.ptInRect(event.x,650-event.y)):
                 self.onOver()
 
 

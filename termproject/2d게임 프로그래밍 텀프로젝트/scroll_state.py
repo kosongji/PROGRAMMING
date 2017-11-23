@@ -3,8 +3,10 @@ from pico2d import *
 import game_framework
 import title_state
 
+
 from character import FreeCharacter as Character # import Boy class from boy.py
 from background import FixedBackground as Background
+from enemy import Enemy as Enemy
 
 
 
@@ -13,12 +15,14 @@ name = "scroll_state"
 button = None
 boy = None
 background = None
+enemy = None
 
 def create_world():
-    global character,character,background
+    global character,background,enemy
    
     character = Character()
     background = Background()
+    enemy = Enemy()
 
     background.set_center_object(character)
     character.set_background(background)
@@ -26,9 +30,10 @@ def create_world():
 
 
 def destroy_world():
-    global character, background
+    global character, background,enemy
     del(character)
     del(background)
+    del(enemy)
 
 
     
@@ -54,7 +59,7 @@ def resume():
 def handle_events(frame_time):
     events = get_events()
     for event in events:
-        if (event.type, event.key) == (SDL_KEYDOWN, SDL_QUIT):
+        if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.change_state(title_state)
@@ -66,11 +71,16 @@ def handle_events(frame_time):
 def update(frame_time):
     character.update(frame_time)
     background.update(frame_time)
+    #for enemy in Enemies:
+    enemy.update(frame_time)
 
 def draw(frame_time):
     clear_canvas()
     background.draw()
     character.draw()
+    #for enemy in Enemies:
+    enemy.draw()
+    
     update_canvas()
 
 
