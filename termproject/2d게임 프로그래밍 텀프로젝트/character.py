@@ -1,5 +1,7 @@
 import random
 
+import bullet
+
 from pico2d import *
 
 
@@ -37,7 +39,7 @@ class FreeCharacter:
         distance = FreeCharacter.RUN_SPEED_PPS * frame_time
         self.total_frames += FreeCharacter.FRAMES_PER_ACTION * FreeCharacter.ACTION_PER_TIME*frame_time
         self.frame = int(self.total_frames) % 1
-        self.x += (self.xdir * distance)
+        self.x += (self.xdir * distance) 
         self.y += (self.ydir * distance)
         if self.x< 50:
             self.x = 50
@@ -69,3 +71,6 @@ class FreeCharacter:
             elif event.key == SDLK_RIGHT: self.xdir += -1
             elif event.key == SDLK_UP: self.ydir -= 1
             elif event.key == SDLK_DOWN: self.ydir += 1
+
+       # if event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+            
