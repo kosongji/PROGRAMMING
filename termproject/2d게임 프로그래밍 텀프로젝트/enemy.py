@@ -20,7 +20,6 @@ class Enemy:
 
     def __init__(self):
         self.x,self.y =  random.randint(100, 700), 600
-        self.frame = random.randint(0, 7)
         self.life_time = 0.0
         self.total_frames = 0.0
         self.xdir = 1
@@ -50,7 +49,7 @@ class Enemy:
     def draw(self):
         sx = self.x 
         sy = self.y
-        self.image.clip_draw(self.frame * 100,0,100,100,sx,sy)
+        self.image.clip_draw(0,0,100,100,sx,sy)
         
     
 #Enemies = [Enemy() for i in range(10)]
