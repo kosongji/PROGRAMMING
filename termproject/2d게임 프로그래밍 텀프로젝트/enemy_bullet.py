@@ -1,6 +1,5 @@
 import random
 import enemy
-
 from pico2d import *
 
 
@@ -21,8 +20,9 @@ class Enemy_Bullet:
 
     def __init__(self,x,y):
 
-        self.bx,self.by = x.y
+        self.bx,self.by = x,y
         self.shoot_speed = 1000
+    
         
         if Enemy_Bullet.image == None:
             Enemy_Bullet.image = load_image('enemy_bullet.png')
@@ -30,12 +30,10 @@ class Enemy_Bullet:
             
     def update(self, frame_time):
         self.by -= frame_time * self.shoot_speed
-        
 
   
     def draw(self):
         bx = self.bx
         by = self.by
-        self.image.clip_draw(0,0,10,40,bx,by)
-    
-           
+        self.image.clip_draw(0,0,10,50,bx,by)
+ 

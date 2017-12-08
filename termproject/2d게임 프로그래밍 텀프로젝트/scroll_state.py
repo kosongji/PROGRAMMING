@@ -4,11 +4,11 @@ import game_framework
 import title_state
 
 
-
 from character import FreeCharacter as Character # import Boy class from boy.py
 from background import FixedBackground as Background
 from enemy import Enemy as Enemy
 from bullet import Bullet as Bullet
+
 
 
 name = "scroll_state"
@@ -21,14 +21,14 @@ bullet = []
 bsound = None
 
 
-
 def create_world():
     global character,background,enemy,bullet
+   
     character = Character()
     background = Background()
     enemy = Enemy()
     bullet= []
-    
+  
 
     background.set_center_object(character)
     character.set_background(background)
@@ -41,12 +41,11 @@ def destroy_world():
     del(background)
     del(enemy)
     del(bullet)
-    
+   
 
     
 def enter():
     global bsound
-    
     #open_canvas(800, 600)
     #hide_cursor()
     game_framework.reset_time()
@@ -69,6 +68,21 @@ def resume():
     pass
 
 
+def collide(a,b):
+    if a.death == False and b.death == False:
+        left_a, bottom_a, right_a, top_a = a.get()
+        left_b, bottom_b, right_b, top_b = b.get()
+
+        if left_a > right_b : return False
+        if right_a < left_b : return False
+        if top_a < bottom_b : return False
+        if bottom_a > top_b : return False
+        a.HP -= 10
+        b.death = True
+        return True
+
+              
+
 def handle_events(frame_time):
     global bullet,bsound
     events = get_events()
@@ -79,34 +93,41 @@ def handle_events(frame_time):
             if event.key == SDLK_SPACE:    
                 bullet += [Bullet(character.x,character.y+70)]
                 bsound.play()
-    
+                
         if event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.change_state(title_state)
         else:
             character.handle_event(event)
             background.handle_event(event)
-            #bullet.handle_event(event)
+            
+                
+            
             
 
 def update(frame_time):
     global bullet
     character.update(frame_time)
     background.update(frame_time)
-    #for enemy in Enemies:
+    enemy.update(frame_time)
     for i in bullet:
         i.update(frame_time)
-    enemy.update(frame_time)
+
+
+    for b in bullet:
+        if collide(enemy,b):
+            print("collision")
 
 def draw(frame_time):
     global bullet
     clear_canvas()
     background.draw()
     character.draw()
-    #for enemy in Enemies:
     enemy.draw()
+
     for i in bullet:
         i.draw()
-    
+
+
     
     update_canvas()
 
