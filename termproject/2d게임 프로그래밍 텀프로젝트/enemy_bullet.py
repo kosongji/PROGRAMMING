@@ -22,7 +22,7 @@ class Enemy_Bullet:
 
         self.bx,self.by = x,y
         self.shoot_speed = 1000
-    
+        self.C_death = False
         
         if Enemy_Bullet.image == None:
             Enemy_Bullet.image = load_image('enemy_bullet.png')
@@ -35,5 +35,8 @@ class Enemy_Bullet:
     def draw(self):
         bx = self.bx
         by = self.by
-        self.image.clip_draw(0,0,10,50,bx,by)
- 
+        if self.C_death == False:
+            self.image.clip_draw(0,0,10,50,bx,by)
+           
+    def get(self):
+        return self.bx -5,self.by - 5,self.bx+5,self.by+5

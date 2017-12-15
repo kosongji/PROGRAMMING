@@ -19,6 +19,7 @@ background = None
 enemy = None
 bullet = []
 bsound = None
+bgm = None
 
 
 def create_world():
@@ -45,7 +46,7 @@ def destroy_world():
 
     
 def enter():
-    global bsound
+    global bsound,bgm
     #open_canvas(800, 600)
     #hide_cursor()
     game_framework.reset_time()
@@ -54,6 +55,11 @@ def enter():
     if bsound == None:
         bsound = load_wav('bullet_sound.wav')
         bsound.set_volume(32)
+   # if bgm == None:
+       # bgm = load_wav('bgm.wav')
+       #bgm.set_volume(32)
+        #bgm.repeat_play()
+            
 
 
 def exit():
@@ -84,7 +90,7 @@ def collide(a,b):
               
 
 def handle_events(frame_time):
-    global bullet,bsound
+    global bullet,bsound,bgm
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -94,21 +100,28 @@ def handle_events(frame_time):
                 bullet += [Bullet(character.x,character.y+70)]
                 bsound.play()
                 
+                
         if event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.change_state(title_state)
         else:
             character.handle_event(event)
             background.handle_event(event)
+       
             
                 
             
             
 
 def update(frame_time):
-    global bullet
-    character.update(frame_time)
+    global bullet,bgm
+    
+   
     background.update(frame_time)
-    enemy.update(frame_time)
+    if enemy.death == False:
+        enemy.update(frame_time)
+    
+    if character.C_death == False:
+        character.update(frame_time)
     for i in bullet:
         i.update(frame_time)
 
@@ -121,7 +134,8 @@ def draw(frame_time):
     global bullet
     clear_canvas()
     background.draw()
-    character.draw()
+    if character.C_death == False:
+        character.draw()
     enemy.draw()
 
     for i in bullet:
